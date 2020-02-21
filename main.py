@@ -35,7 +35,7 @@ class mlp(nn.Module):
     def __init__(self):
         super(mlp, self).__init__()
         self.fc1 = nn.Linear(784, 150)
-        self.fc2_bn = nn.BatchNorm1d(150)
+        self.fc1_bn = nn.BatchNorm1d(150)
         self.fc2 = nn.Linear(150, 100)
         self.fc2_bn = nn.BatchNorm1d(100)
         self.fc3 = nn.Linear(100, 50)
@@ -43,7 +43,7 @@ class mlp(nn.Module):
 
     def forward(self, x):
         x = x.view(-1, 784)
-        out = F.relu(self.fc1(x))
+        out = F.relu(self.fc1_bn(self.fc1(x)))
         out = F.relu(self.fc2_bn(self.fc2(out)))
         out = F.relu(self.fc3(out))
         out = self.fc4(out)
